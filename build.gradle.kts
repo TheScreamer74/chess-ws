@@ -34,6 +34,9 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.ktor:ktor-server-config-yaml")
     implementation("io.ktor:ktor-server-locations-jvm:2.3.4") // REST endpoints
+    implementation("com.auth0:java-jwt:4.4.0") // For JWT creation and verification
+
+
     testImplementation("io.ktor:ktor-server-test-host-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
