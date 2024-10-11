@@ -30,7 +30,7 @@ fun Application.configureRouting() {
                     .withIssuer("ktor.io")
                     .withClaim("username", username)
                     .withExpiresAt(Date(System.currentTimeMillis() + 1000L * 60 * 10)) // Expires in 10 minute
-                    .sign(Algorithm.HMAC256("secre t"))
+                    .sign(Algorithm.HMAC256("secret"))
 
                 call.respond(mapOf("token" to token))
             } else {
