@@ -4,9 +4,9 @@ import org.jetbrains.exposed.sql.Table
 
 object Users : Table() {
     val id = integer("id").autoIncrement()
-    val username = varchar("username", 50).uniqueIndex()
-    val email = varchar("email", 100).uniqueIndex()
-    val passwordHash = varchar("password_hash", 64)
+    val username = varchar("username", 26).uniqueIndex()
+    val email = varchar("email", 30).uniqueIndex()
+    val passwordHash = varchar("password_hash", 60)
 
     override val primaryKey = PrimaryKey(id)
 }

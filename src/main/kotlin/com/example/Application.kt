@@ -14,7 +14,7 @@ fun main() {
 fun Application.module() {
     install(Locations) // Enable locations for REST-style endpoints
 
-
+    configureDatabase()
     configureSerialization()
     configureSockets()
     configureSecurity()

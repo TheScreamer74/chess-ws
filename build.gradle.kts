@@ -44,6 +44,9 @@ dependencies {
     implementation("org.postgresql:postgresql:42.5.0") // PostgreSQL driver
     implementation("com.zaxxer:HikariCP:5.0.1") // Connection pool
 
+    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
+
+    implementation("org.mindrot:jbcrypt:0.4")
 
     testImplementation("io.ktor:ktor-server-test-host-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
