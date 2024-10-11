@@ -1,4 +1,4 @@
-package com.example.utils
+package com.thomashuyghues.utils
 
 import org.mindrot.jbcrypt.BCrypt
 

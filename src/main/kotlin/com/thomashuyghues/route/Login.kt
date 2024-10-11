@@ -1,4 +1,4 @@
-package com.example.route
+package com.thomashuyghues.route
 
 import com.example.database.users.getUserByUsername
 import com.example.model.endpoint.LoginRequest

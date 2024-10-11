@@ -1,4 +1,4 @@
-package com.example.plugins
+package com.thomashuyghues.plugins
 
 import com.example.route.loginRoute
 import com.example.route.registerRoute

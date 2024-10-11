@@ -1,4 +1,4 @@
-package com.example.database.users
+package com.thomashuyghues.database.users
 
 import org.jetbrains.exposed.sql.Table
 

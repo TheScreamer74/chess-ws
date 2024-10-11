@@ -1,4 +1,4 @@
-package com.example.plugins
+package com.thomashuyghues.plugins
 
 import com.example.database.users.Users
 import com.zaxxer.hikari.HikariConfig

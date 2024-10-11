@@ -1,1 +1,1 @@
-rootProject.name = "com.thomashuyghues.chess-ws"
+rootProject.name = "chess-ws"

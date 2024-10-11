@@ -1,6 +1,6 @@
-package com.example
+package com.thomashuyghues
 
-import com.example.plugins.*
+import com.thomashuyghues.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.locations.*

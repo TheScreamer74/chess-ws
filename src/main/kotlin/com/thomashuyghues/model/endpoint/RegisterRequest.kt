@@ -1,4 +1,4 @@
-package com.example.model.endpoint
+package com.thomashuyghues.model.endpoint
 
 import kotlinx.serialization.Serializable
 
