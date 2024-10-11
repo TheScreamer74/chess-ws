@@ -1,9 +1,9 @@
 package com.thomashuyghues.route
 
-import com.example.database.users.getUserByUsername
-import com.example.model.endpoint.LoginRequest
-import com.example.plugins.generateJWT
-import com.example.utils.validatePassword
+import com.thomashuyghues.database.users.getUserByUsername
+import com.thomashuyghues.model.endpoint.LoginRequest
+import com.thomashuyghues.plugins.generateJWT
+import com.thomashuyghues.utils.validatePassword
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*

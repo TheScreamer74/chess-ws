@@ -1,8 +1,8 @@
 package com.thomashuyghues.route
 
-import com.example.database.users.createUser
-import com.example.model.endpoint.RegisterRequest
-import com.example.utils.hashPassword
+import com.thomashuyghues.database.users.createUser
+import com.thomashuyghues.model.endpoint.RegisterRequest
+import com.thomashuyghues.utils.hashPassword
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*

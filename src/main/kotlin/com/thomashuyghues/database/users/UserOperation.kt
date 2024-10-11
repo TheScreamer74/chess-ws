@@ -1,6 +1,6 @@
 package com.thomashuyghues.database.users
 
-import com.example.model.data.User
+import com.thomashuyghues.model.data.User
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 

@@ -1,7 +1,7 @@
 package com.thomashuyghues.plugins
 
-import com.example.route.loginRoute
-import com.example.route.registerRoute
+import com.thomashuyghues.route.loginRoute
+import com.thomashuyghues.route.registerRoute
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*

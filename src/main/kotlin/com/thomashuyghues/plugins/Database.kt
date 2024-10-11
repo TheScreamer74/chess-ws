@@ -1,6 +1,6 @@
 package com.thomashuyghues.plugins
 
-import com.example.database.users.Users
+import com.thomashuyghues.database.users.Users
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.github.cdimascio.dotenv.dotenv
