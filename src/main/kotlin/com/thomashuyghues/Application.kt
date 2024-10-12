@@ -13,7 +13,6 @@ fun main() {
 @OptIn(KtorExperimentalLocationsAPI::class)
 fun Application.module() {
     install(Locations) // Enable locations for REST-style endpoints
-
     configureDatabase()
     configureSerialization()
     configureSockets()

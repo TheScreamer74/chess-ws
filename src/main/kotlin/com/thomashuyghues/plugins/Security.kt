@@ -45,3 +45,25 @@ fun generateJWT(username: String) : String {
         .withExpiresAt(Date(System.currentTimeMillis() + 1000L * 60 * 10)) // Expires in 10 minute
         .sign(Algorithm.HMAC256(dotenv["SECRET_JWT"]))
 }
+
+fun verifyJWT(token: String): UserIdPrincipal? {
+    val jwtVerifier = JWT
+        .require(Algorithm.HMAC256(dotenv["SECRET_JWT"]))
+        .withIssuer("ktor.io")
+        .build()
+
+    val decodedJWT = try {
+        jwtVerifier.verify(token)
+    } catch (e: Exception) {
+        null
+    }
+
+    return decodedJWT?.let {
+        val username = it.getClaim("username").asString()
+        if (username != null) {
+            UserIdPrincipal(username)
+        } else {
+            null
+        }
+    }
+}

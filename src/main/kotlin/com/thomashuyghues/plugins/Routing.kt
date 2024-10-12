@@ -1,5 +1,6 @@
 package com.thomashuyghues.plugins
 
+import com.thomashuyghues.route.chatWebSocket
 import com.thomashuyghues.route.loginRoute
 import com.thomashuyghues.route.registerRoute
 import io.ktor.server.application.*
@@ -16,24 +17,6 @@ fun Application.configureRouting() {
         // Public route
         registerRoute()
         loginRoute()
-        webSocket("/ws") {
-            try {
-                for (frame in incoming) {
-                    when (frame) {
-                        is Frame.Text -> {
-                            val text = frame.readText()
-                            println("Received: $text")
-                            send(Frame.Text("Message received: $text"))
-                        }
-                        else -> println("Other frame: $frame")
-                    }
-                }
-            } catch (e: ClosedReceiveChannelException) {
-                println("WebSocket closed.")
-            } finally {
-                println("WebSocket closed.")
-            }
-        }
         // Protected route
         authenticate("auth-jwt") {
             get("/protected-route") {
@@ -41,6 +24,7 @@ fun Application.configureRouting() {
                 val username = principal!!.payload.getClaim("username").asString()
                 call.respondText("Hello, $username! This is a protected route.")
             }
+            chatWebSocket()
         }
     }
 }
