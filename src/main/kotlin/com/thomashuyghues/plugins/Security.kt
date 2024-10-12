@@ -10,7 +10,6 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.response.*
-import java.util.*
 
 val dotenv = dotenv()
 
@@ -60,14 +59,14 @@ fun generateTokens(username: String): Pair<String, String> {
         .withAudience("jwt-audience")
         .withIssuer("ktor.io")
         .withClaim("username", username)
-        .withExpiresAt(Date().getAccessTokenExpiration())
+        .withExpiresAt(getAccessTokenExpiration())
         .sign(Algorithm.HMAC256(dotenv["SECRET_JWT"]))
 
     val refresh = JWT.create()
         .withAudience("jwt-audience")
         .withIssuer("ktor.io")
         .withClaim("username", username)
-        .withExpiresAt(Date().getRefreshTokenExpiration())
+        .withExpiresAt(getRefreshTokenExpiration())
         .sign(Algorithm.HMAC256(dotenv["SECRET_JWT"]))
 
     return Pair(access, refresh)

@@ -10,7 +10,6 @@ import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import java.util.*
 
 fun Routing.refreshToken() {
     authenticate("auth-refresh-jwt") {
@@ -43,7 +42,7 @@ fun Routing.refreshToken() {
             rotateRefreshToken(
                 user.id,
                 newRefreshToken,
-                Date().getRefreshTokenExpiration().toInstant(),
+                getRefreshTokenExpiration().toInstant(),
                 oldRefreshToken
             ) // TODO : Find a way to remove non-assertion
 

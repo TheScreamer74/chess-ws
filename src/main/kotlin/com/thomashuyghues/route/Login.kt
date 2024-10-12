@@ -10,7 +10,6 @@ import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import java.util.*
 
 fun Route.loginRoute() {
     post("/login") {
@@ -19,7 +18,7 @@ fun Route.loginRoute() {
 
         if (user != null && validatePassword(parameters.password, user.passwordHash)) {
             val (access, refresh) = generateTokens(user.username)
-            storeRefreshToken(user.id, refresh, Date().getRefreshTokenExpiration().toInstant())
+            storeRefreshToken(user.id, refresh, getRefreshTokenExpiration().toInstant())
             call.respond(
                 mapOf(
                     "access" to access,
