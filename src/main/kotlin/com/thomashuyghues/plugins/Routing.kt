@@ -18,13 +18,6 @@ fun Application.configureRouting() {
 
         refreshToken()
         // Protected route
-        authenticate("auth-jwt") {
-            get("/protected-route") {
-                val principal = call.principal<JWTPrincipal>()
-                val username = principal!!.payload.getClaim("username").asString()
-                call.respondText("Hello, $username! This is a protected route.")
-            }
-            chatWebSocket()
-        }
+        chatWebSocket()
     }
 }

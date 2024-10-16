@@ -15,31 +15,12 @@ val dotenv = dotenv()
 
 fun Application.configureSecurity() {
     install(Authentication) {
-        jwt("auth-jwt") {
-            realm = "ktor-sample"
-            verifier(
-                JWT
-                    .require(Algorithm.HMAC256(dotenv["SECRET_JWT"]))
-                    .withAudience("jwt-audience")
-                    .withIssuer("ktor.io")
-                    .build())
-            validate { credential ->
-                if (credential.payload.getClaim("username").asString() != "") {
-                    JWTPrincipal(credential.payload)
-                } else {
-                    null
-                }
-            }
-            challenge { _, _ ->
-                call.respond(HttpStatusCode.Unauthorized, "Invalid token")
-            }
-        }
         // JWT for refresh tokens
         jwt("auth-refresh-jwt") {
             realm = "ktor.io"
             verifier(
                 JWT
-                    .require(Algorithm.HMAC256(dotenv["SECRET_JWT"]))
+                    .require(Algorithm.HMAC256(dotenv["REFRESH_SECRET_JWT"]))
                     .withAudience("jwt-audience")
                     .withIssuer("ktor.io")
                     .build()
@@ -60,21 +41,21 @@ fun generateTokens(username: String): Pair<String, String> {
         .withIssuer("ktor.io")
         .withClaim("username", username)
         .withExpiresAt(getAccessTokenExpiration())
-        .sign(Algorithm.HMAC256(dotenv["SECRET_JWT"]))
+        .sign(Algorithm.HMAC256(dotenv["ACCESS_SECRET_JWT"]))
 
     val refresh = JWT.create()
         .withAudience("jwt-audience")
         .withIssuer("ktor.io")
         .withClaim("username", username)
         .withExpiresAt(getRefreshTokenExpiration())
-        .sign(Algorithm.HMAC256(dotenv["SECRET_JWT"]))
+        .sign(Algorithm.HMAC256(dotenv["REFRESH_SECRET_JWT"]))
 
     return Pair(access, refresh)
 }
 
-fun verifyJWT(token: String): UserIdPrincipal? {
+fun verifyJWT(token: String): UserIdPrincipal? { // A verifier for Access token
     val jwtVerifier = JWT
-        .require(Algorithm.HMAC256(dotenv["SECRET_JWT"]))
+        .require(Algorithm.HMAC256(dotenv["ACCESS_SECRET_JWT"]))
         .withIssuer("ktor.io")
         .build()
 

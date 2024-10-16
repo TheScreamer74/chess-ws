@@ -19,7 +19,7 @@ fun Route.registerRoute() {
 
         if (userRegistered != null)
             // Respond with success message
-            call.respond(HttpStatusCode.Created, "Welcome ${userRegistered.username}")
+            call.respond(HttpStatusCode.Created, mapOf("username" to userRegistered.username))
         else
             call.respond(HttpStatusCode.InternalServerError, "Error happened during registration")
     }
