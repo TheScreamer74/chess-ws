@@ -16,35 +16,29 @@ fun Routing.refreshToken() {
         post("/refresh-token") {
             val principal = call.principal<JWTPrincipal>()
             val username = principal!!.payload.getClaim("username").asString()
-            val oldRefreshToken =
-                call.request.headers["Authorization"]?.removePrefix("Bearer ")!! // past authentication the token is obligatory there
+            val oldRefreshToken = call.request.headers["Authorization"]?.removePrefix("Bearer ")!! // after authentication the token is obligatory there
 
             if (!isTokenExists(oldRefreshToken)) {
                 call.respond(HttpStatusCode.Unauthorized, "Token is expired you might re-log").run {
                     return@post
                 }
             }
-
-
-            // Generate new tokens
-            val (newAccessToken, newRefreshToken) = generateTokens(username)
-
             val user = getUserByUsername(username)
-
             user ?: call.respond(
                 HttpStatusCode.InternalServerError,
                 "Unexpected error, user $username associated with token not found in database"
             ).run {
                 return@post
             }
-
+            // Generate new tokens
+            val (newAccessToken, newRefreshToken) = generateTokens(username)
             // Rotate the refresh tokens
             rotateRefreshToken(
                 user.id,
                 newRefreshToken,
                 getRefreshTokenExpiration().toInstant(),
                 oldRefreshToken
-            ) // TODO : Find a way to remove non-assertion
+            )
 
             call.respond(mapOf("accessToken" to newAccessToken, "refreshToken" to newRefreshToken))
         }
