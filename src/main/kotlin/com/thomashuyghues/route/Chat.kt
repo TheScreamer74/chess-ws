@@ -1,8 +1,6 @@
 package com.thomashuyghues.route
 
-import com.sun.security.auth.UserPrincipal
 import com.thomashuyghues.plugins.verifyJWT
-import io.ktor.server.auth.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
@@ -16,12 +14,18 @@ fun Routing.chatWebSocket() {
 
     webSocket("/chat") {
         val token = call.request.headers["Authorization"] ?: run {
-            close(CloseReason(CloseReason.Codes.CANNOT_ACCEPT, "Missing token"))
+            // Send an error message to the client if the token is missing
+            close(CloseReason(CloseReason.Codes.VIOLATED_POLICY, """{"error":"Unauthorized","message":"Authorization token must be provided."}"""))
+            // NOTE : Set up a custom logger
+            println("WebSocket connection closed: Token not provided.")
             return@webSocket
         }
 
         val username = verifyJWT(token) ?: run {
-            close(CloseReason(CloseReason.Codes.CANNOT_ACCEPT, "Invalid token"))
+            // Send an error message to the client if the token is invalid or expired
+            close(CloseReason(CloseReason.Codes.CANNOT_ACCEPT, """{"error":"Invalid Token","message":"The provided token is invalid or expired. Please refresh your token."}"""))
+            // NOTE : Set up a custom logger
+            println("WebSocket connection closed: Invalid or expired token.")
             return@webSocket
         }
 
