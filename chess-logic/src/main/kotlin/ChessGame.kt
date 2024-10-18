@@ -5,13 +5,13 @@ class ChessGame {
     var currentPlayer = "White"
     private var lastMove: Pair<Int, Int>? = null  // To track the last move made for en passant
 
-    fun makeMove(fromX: Int, fromY: Int, toX: Int, toY: Int): Map<Boolean, Board> {
+    fun makeMove(fromX: Int, fromY: Int, toX: Int, toY: Int): Boolean {
         val piece = board.getPiece(fromX, fromY)
 
         // Ensure it's the current player's turn
         if (piece == null || piece.color != currentPlayer) {
             println("It's $currentPlayer's turn.")
-            return mapOf(false to board)
+            return false
         }
 
         // Get valid moves for the piece
@@ -27,12 +27,12 @@ class ChessGame {
 
             if (!validMoves.contains(Pair(toX, toY))) {
                 println("Invalid move. You are in check, and this move doesn't remove the check.")
-                return mapOf(false to board)
+                return false
             }
         } else {
             if (!possibleMoves.contains(Pair(toX, toY))) {
                 println("Invalid move.")
-                return mapOf(false to board)
+                return false
             }
         }
 
@@ -65,7 +65,7 @@ class ChessGame {
             }
             if (isCheckmate(opponentColor)) {
                 println("Checkmate! $currentPlayer wins!")
-                return mapOf(true to board)
+                return true
             } else {
                 println("$opponentColor is in check!")
             }
@@ -105,7 +105,7 @@ class ChessGame {
 
         // Switch turn to the other player
         switchPlayer()
-        return mapOf(true to board)
+        return true
     }
 
     // Function to handle pawn promotion

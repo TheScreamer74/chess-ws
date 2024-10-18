@@ -1,6 +1,7 @@
 package com.thomashuyghues.plugins
 
 import com.thomashuyghues.route.chatWebSocket
+import com.thomashuyghues.route.chessRoute
 import com.thomashuyghues.route.loginRoute
 import com.thomashuyghues.route.refreshToken
 import com.thomashuyghues.route.registerRoute
@@ -19,5 +20,6 @@ fun Application.configureRouting() {
         refreshToken()
         // Protected route
         chatWebSocket()
+        chessRoute()
     }
 }

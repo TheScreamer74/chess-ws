@@ -1,7 +1,3 @@
-package com.thomashuyghues.chess
-
-import Piece
-
 data class Square(var piece: Piece?, var color: String) {
     // Copy function to create a deep copy of the square
     fun copy(): Square {

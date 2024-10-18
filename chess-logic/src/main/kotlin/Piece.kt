@@ -1,6 +1,3 @@
-import com.thomashuyghues.chess.Square
-
-
 abstract class Piece(val color: String) {
     abstract fun possibleMoves(x: Int, y: Int, board: Array<Array<Square>>): List<Pair<Int, Int>>
     abstract fun copy(): Piece

@@ -1,5 +1,3 @@
-import com.thomashuyghues.chess.Square
-
 class Board {
 
     // Board is now an 8x8 array of Square objects, each containing a piece and a color
